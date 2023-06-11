@@ -3,7 +3,7 @@ import userModel from "../models/userSchema.js";
 import { Parser } from 'json2csv';
 
 
-let uploadFile;
+// uploadFile;
 
 export async function userRegister(req, res) {
   try {
@@ -15,7 +15,7 @@ export async function userRegister(req, res) {
       const extension = splitted[splitted.length - 1];
       const newPath = path + "." + extension;
       fs.renameSync(path, newPath);
-       uploadFile = newPath;
+    let uploadFile = newPath;
       let regName = /^[a-zA-Z\s]+$/;
       let regMobile = /^[0-9]{10}$/;
       if (regName.test(obj.firstName)) {
@@ -124,6 +124,14 @@ export async function editUser(req,res){
   try{
     let obj=req.body;
     let userId=req.params.userId;
+      //image
+      const { path, originalname } = req.file;
+      const splitted = originalname.split(".");
+      const extension = splitted[splitted.length - 1];
+      const newPath = path + "." + extension;
+      fs.renameSync(path, newPath);
+       let uploadFile = newPath;
+  
     await userModel.findByIdAndUpdate(userId,{
       firstName: obj.firstName,
       lastName: obj.lastName,
