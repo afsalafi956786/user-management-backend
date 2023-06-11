@@ -19,8 +19,8 @@ app.use('/uploads', express.static(path.join(__dirname ,'/uploads')))
 app.use(express.json());
 app.use(cors({
     credentials:true,
-    origin:['https://react-usermanagement.onrender.com','http://localhost:5173'],
-    d
+    origin:'http://localhost:5173'
+    
    
 }))
 
